@@ -101,11 +101,11 @@ def parse_args():
 
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     args = parse_args()
     csv_files = sorted(list(glob.glob(os.path.join(args.csv_folder, "*.csv"))))
     dataset = TideAnomalyDataset(args.image_folder, csv_files)
     get_weights = dataset.get_weights()
-    seed(args.seed)
 
     train_dataset = torch.utils.data.Subset(dataset, range(5593))
     test_dataset = torch.utils.data.Subset(dataset, range(5593, len(dataset)))
